@@ -66,3 +66,5 @@ console.log("NaN is finite?", isFinite(parseInt("abc")));    // abc가 유한수
 // inFinity와 수치형 데이터의 산술 연산 -> inFinity
 let result = 1/ 0 + 2024;
 console.log(result, typeof result);
+
+// 컨트롤 + c 하면 (터미널에서 입장해있는 파일? 에서) 나와짐 
