@@ -39,7 +39,9 @@ const arr = [];
 console.log(arr, arr.length);
 
 // 인덱스 범위를 벗어난 배열의 접근
-arr[10] = 2024;                         // 0~10개의 방이니까 총 11개의 방 
+arr[10] = 2024;                         // 0~10개의 방이니까 총 11개의 방 // 아냐 틀렸음 이거 아니라 챗지피티가
+//                                배열의 인덱스는 0부터 시작하며, 배열에 값을 할당할 때, 그 인덱스가 현재 배열의 
+//                                길이를 넘어설 경우 자바스크립트는 배열을 자동으로 확장되니까 11이래   
 console.log(arr, arr.length);           // -> [ <10 empty items>, 2024 ] 11 == 배열 안에 10개의 빈 방과, 2024 있음 
 
 console.log(`
@@ -52,10 +54,10 @@ const sources = ["소금", "고추가루", "새우젓"];
 // console.log(Array.concat(sources))
 
 const ingr = veges.concat(sources);     // 합치고
-console.log(ingr);                      // 출력
+console.log(ingr);                      // 합친 ingr를 출력
 
 // join : 특정 문자열 기준 합치기
-console.log("김장 재료:", ingr.join(","));      // 합치면서 배열들에 , 추가
+console.log("김장 재료:", ingr.join(", "));      // 합치면서 배열들 사이사이에 , 추가
 console.log("");
 
 
@@ -65,6 +67,7 @@ console.log(fruits);
 fruits.push("Kiwi");            // Kiwi 추가. push
 console.log(fruits);
 
+// 입력 입구와 출력 입구가 같음 (후입선출)
 console.log(fruits.pop());      // 늦게 들어간 애가 제일 먼저 꺼내짐 Kiwi
 console.log(fruits.pop());      // Mango 꺼내 pop
 console.log(fruits.pop());      // Orange 꺼내 pop
@@ -74,7 +77,7 @@ console.log(fruits);            // -> 남은 애들 ['Apple', 'Banana']
 fruits.push('Orangr', 'Mango', 'Kiwi');     // 다시 push
 console.log(fruits);
 
-// 이제 앞에서부터 꺼내볼거임 
+// 이제 앞에서부터 꺼내볼거임 (선입선출)
 console.log(fruits.shift());    // 가장 앞에 있던 Apple 꺼내짐 shift
 console.log(fruits.shift());    // Banana 꺼내 
 console.log(fruits.shift());    // Orangr 꺼내 
@@ -88,7 +91,7 @@ console.log(fruits);
 
 // 매개변수가 1개 : 해당 인덱스부터 끝까지 추출 후, 제거! (인수가 한개일 경우, 기본이 삭제)
 /*
-console.log(fruits.splice(2));       // 2번 인덱스부터 끝까지 추출 ('Orangr', 'Mango', 'Kiwi' 추출 후 삭제)
+console.log(fruits.splice(2));       // 2번 인덱스 앞부터 끝까지 추출 ('Orangr', 'Mango', 'Kiwi' 추출 후 삭제)
 console.log(fruits);                // 남은건 ['Apple', 'Banana']
 */
 
@@ -164,14 +167,18 @@ fruit.sort((v1, v2) => v1 > v2 ? -1 : 1);
 console.log("sort:", fruits);
 // 장점 : 간결, 성능 빠름 / 유연성 중간
 
+//---------------------------------------------------------------------
+
 
 /* 문자열 길이순으로 정렬 */
+
 /*      (오름차순. 두 문자열 길이를 비교해서 짧은 문자열이 앞으로 오도록)
 fruits.sort((v1,v2) => {
     return v1.length - v2.length;
 });
 console.log("sort:", fruits); 
 */
+
 /*      (내림차순. 두 문자열을 비교패서 긴 문자열이 앞으로 오도록)
 fruits.sort((v1, v2) => {
     return v2.length - v1.length;
