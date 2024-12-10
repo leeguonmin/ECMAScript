@@ -12,6 +12,7 @@ console.log(v3, v3.length);
 const v4 = [];                  // 빈 배열 
 const colors = ["red", "green", "blue", "yellow"];
 
+
 // 타입 체크 
 console.log(typeof v4, typeof colors);          // 근데 이거로는 특정 객체가 배열이지 아닌지 알 수 없음. 
 //                                                  이것도 object object 인것만 알려줬잖아  
@@ -126,7 +127,7 @@ fruits.sort();              // 기본값은 오름차순
 console.log("sort:", fruits);
 */
 
-/*
+
 fruits.sort((v1,v2) => {
     // 역순 정렬                                        // 자바스크립트는 역순이 많이 으렵네..........
     // 0이면 순서가 같다 (즉, 변경 업음)
@@ -139,18 +140,49 @@ fruits.sort((v1,v2) => {
     if (v1 == v2) return 0;
 
 });
-
-console.log("sort:", fruits);               
-*/
-
-/* 문자열 길이순으로 정렬 */
-fruits.sort((v1,v2) => {
-    return v1.length = v2.length;
-});
-
-console.log("sort:", fruits); 
+console.log("sort:", fruits);     
+// 장점 : 유연성 높음, 성능 빠름 / 단점 : 코드가 어려워요
 
 // 아니 여기서 v1 v2 가 뭔데? 갑자기 이게 왜 나오는겨? 이런 혼란 오랜만이네 ;;; 
+// v1 v2 는 그냥 임의로 정한 이름이래. 내 맘대로 a,b 혹은 v,vv 이렇게 해도 됨. 이름이 중요한게 아니라, 비교가 중요한거
+// 두개씩 비교해서 누가누구보다 크면 앞으로 뒤로, 하면서 순서를 고치는거임
+// 최종적으로 난 역순으로 정렬된 값을 받는거고, 저건 그 값을 구하기 위한 조건인거고
+
+//-------------------------------------------------------------------
+
+
+// 역순 정렬 2
+// 기본 정렬 후 배열을 뒤집는 방법도 있음 
+fruits.sort().reverse();
+console.log("sort:", fruits); 
+// 장점 : 매우 간단 / 단점 : 성능이 느림. 유연성이 낮음(기본 정렬만 가능)
+
+// 역순 정렬 3
+let fruit = ['Apple', 'Banana', 'Guava', 'Grape', 'Mango', 'Kiwi'];
+
+fruit.sort((v1, v2) => v1 > v2 ? -1 : 1);
+console.log("sort:", fruits);
+// 장점 : 간결, 성능 빠름 / 유연성 중간
+
+
+/* 문자열 길이순으로 정렬 */
+/*      (오름차순. 두 문자열 길이를 비교해서 짧은 문자열이 앞으로 오도록)
+fruits.sort((v1,v2) => {
+    return v1.length - v2.length;
+});
+console.log("sort:", fruits); 
+*/
+/*      (내림차순. 두 문자열을 비교패서 긴 문자열이 앞으로 오도록)
+fruits.sort((v1, v2) => {
+    return v2.length - v1.length;
+});
+console.log("sort:", fruits); 
+*/
+
+
+
+
+
 
 
 // split 
