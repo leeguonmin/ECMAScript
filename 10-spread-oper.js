@@ -91,5 +91,7 @@ console.log(`
 =========================================== 객체 전개 할당 `);
 console.log("object:", combined);
 
-let { other, ...remains} = combined;
-console.log(other, remains);
+let { other, ...remains} = combined;            // other 뽑아내자~
+console.log(other, remains);                    // other 제외한 나머지
+//                                              remains 뭐여?
+

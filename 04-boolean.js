@@ -53,7 +53,9 @@ console.log(true && "Test");        // 왜 Test 가 나오냐? => true면 Test�
 console.log(false && "Test");       // 값이 false 여야 하니까 "" 여기가 Test 든 말든, 볼 것도 없이 false 출력
 
 console.log(true || "Test");        // 왜 true가 나오냐? => true 값이 나와야 하니까, 얘도 뒤에 "" 여기가 Test 든 말든, 볼 것도 없이 true 출력
-console.log(false || "Test");
+console.log(false || "Test");       // 얘는 이해가 안된다. 뭐여
+
+// => React의 선택적 렌더링에 많이 활용
 
 
 
