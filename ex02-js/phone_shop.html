@@ -7,6 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>iPhones</title>
     <style>
+
+        bady {
+            margin: 0px;
+            padding: 0px;
+        }
+
         #product-info img.selected {
             width: 225px;
             height: 265px;
@@ -26,27 +32,46 @@
             width: 100px;
             height: 100px;
         }
+
+        .main-image {
+            float: left;
+        }
+
+        h3 {
+            margin-top: 50px;
+        }
     </style>
 </head>
 
 <body>
+    <h1>phone_shop.html</h1>
+
     <div id="product-info">
+
         <img id="main-image" src="images/iphone-xs.jpeg" class="selected" title="iPhones XS">
+        
         <h2>iPhone Xs</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
             commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
             nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
             anim id est laborum.</p>
+
         <h3>Products</h3>
         <ul id="product-list">
-            <li><img class="sub-image" src="/images/iphone-xs.jpeg" title="iPhone XS"></li>
-            <li><img class="sub-image" src="/images/iphone-xr.jpeg" title="iPhone XR"></li>
-            <li><img class="sub-image" src="/images/iphone8.jpeg" title="iPhone 8"></li>
-            <li><img class="sub-image" src="/images/ipad-mini.jpeg" title="iPad Mini"></li>
-        </ul>
+            <li><img class="sub-image" src="./images/iphone-xs.jpeg" title="iPhone XS"></li>
+            <li><img class="sub-image" src="./images/iphone-xr.jpeg" title="iPhone XR"></li>
+            <li><img class="sub-image" src="./images/iphone8.jpeg" title="iPhone 8"></li>
+            <li><img class="sub-image" src="./images/ipad-mini.jpeg" title="iPad Mini"></li>
+        </ul><br />
+
+        <br />
         <input type="text" id="keyword" /><button id="btn-search">검색</button>
+
     </div>
+
+
+
 </body>
 
 </html>

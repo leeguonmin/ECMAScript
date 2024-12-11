@@ -2,11 +2,11 @@
 console.log("=========================================== 배열 전개 연산 ");
 
 let arr1 = ['혼길동', '장길산'];
-let arr2 = ['임꺼정', '전우치'];
+let arr2 = ['임꺼정', '전우치', '복채리'];
 // arr1랑 arr2 를 하나로 합치려면? 
 
 let combined = [];
-// 방법1 (직관적이라 이해는 쉽지만 무식한 방법)
+// 방법1 (직관적이라 이해는 쉽지만 무식한 방법, 배열 안의 담긴게 많을 수록 사용하기 힘들겠쥬)
 combined = [arr1[0],arr1[1],arr2[0],arr2[1]];
 console.log("Combined 합친 방법 1:", combined);
 
@@ -37,11 +37,11 @@ let second = arr[1];
 
 let [first1, second1, third1, ...others1] = arr1;
 console.log(first1, second1, third1, others1);
-// 혼길동 장길산 undefined []
+// 혼길동 장길산 undefined []       => third에 기본값 준게 없으니까 undefined 로 나오는거임. 근데 이렇게 나오면 안되나요?
 
 let [first, second, third = "empty", ...others] = arr1;
 console.log(first, second, third, others);
-// 혼길동 장길산 empty []     => third에 기본값을 "empty" 줘서
+// 혼길동 장길산 empty []           => third에 기본값을 "empty" 줘서
 
                                                                 console.log("");
 
@@ -61,7 +61,7 @@ combined={
     two: obj1.two,
     three: obj2.three,
     four: obj2.four,
-    other: obj2.other   // 중복 속성 ('내가' obj2.other 쓰기로 결정 한거지? 이건)
+    other: obj2.other   // 중복 속성 ('내가' obj2.other 쓰기로 결정 한거지? 이건. 순서도 내가 적은대로 나올거고)
 }
 console.log("combined 방법 1:", combined);
 
@@ -70,8 +70,13 @@ combined = Object.assign({}, obj1,obj2);        // {} 안에 obj1,obj2를 할당
 console.log("combined 방법 2", combined);       // 중복은, 자연스럽게 뒤에 있는 obj2 걸로 덮어써서 출력
 //                                                obj1 가 뒤에 있었으면 other: 0로 덮어씌어질거임
 
+// Object.assign : 메서드
+// 첫 번째 인자인 target 객체를 변경하고, 그 결과를 반환. 
+// 뒤따르는 소스 객체들의 속성이 target 객체에 복사 -> 속성명이 중복될 경우, 나중에 복사된 객체가 우선됨
+
+
 console.log(`
-------------------------------------------------- ES6 방식`);
+------------------------------------------------- ES6 방식`);           // 이 방법을 잘 알아야함요
 combined = {
     ...obj1,            // obj1 의 모든 속성을 전개한다
     ...obj2,            // obj2 의 모든 속성을 전개한다
@@ -94,4 +99,6 @@ console.log("object:", combined);
 let { other, ...remains} = combined;            // other 뽑아내자~
 console.log(other, remains);                    // other 제외한 나머지
 //                                              remains 뭐여?
+//                                              ...other 랑 같은 뜻이라는데, 이름은 임의로 정한거고. 어쨋든 나머지 애들을 지칭하는 말인듯
+
 

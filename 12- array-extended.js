@@ -21,7 +21,11 @@ function testForEach() {
         console.log(`${index}  -> ${item}`, arr);
     })
 };
-// testForEach();
+testForEach();
+
+
+
+
 
 function testEverySome() {
     console.log(`
@@ -70,7 +74,7 @@ function testEverySome() {
 
 
 }
-// testEverySome();
+testEverySome();
 
 
 
@@ -108,7 +112,7 @@ function testMap() {
     console.log("MAP: *2:", multiply);
 
 }
-// testMap();
+testMap();
 
 
 
@@ -127,7 +131,7 @@ function testFilter() {
 
     console.log("3의 배수: ", numbers.filter(item => item % 3 == 0));
 }
-// testFilter();
+testFilter();
 
 
 
@@ -148,11 +152,14 @@ function testReduce() {
             value: ${value},  
             index ${index}, 
             arr: ${arr} )`
-            , acc + value
+            , acc + value       // -> reduce 메서드에서 누적값에서 현재값을 더한거임
         // // `콜백 파라미터(acc: $ {acc},value: $ {value},index $ {index}, arr: $ {arr} )`, acc + value)`
         );
-        // acc -> 현재 까지의 집계값
-        // value -> 현재 값
+        // acc -> 현재 까지의 집계값. 이전 콜백에서 반환된 값이 여기로 들어가.
+        // value -> 현재 값. 현재 처리 중인 배열의 현재 요소
+        // index -> 현재 요소의 인덱스. 위치 
+        // arr -> reduce 를 호출한 원본 배열 
+        //(얘네 이름을 바꿔도 기능은 구현되지만, 거의 고정된 이름이라고 보면 됨. 메서드임.)
 
         return acc + value;     // -> 다음번 콜백의 acc 로 전달
     }, 0);
@@ -160,7 +167,7 @@ function testReduce() {
     // 합산값
     console.log("합산 결과:", sum);
 }
-// testReduce();
+testReduce();
 
 
 
@@ -184,7 +191,7 @@ function testReduce2() {
     console.log("\n 요소 두배 : ", result);
 
 }
-// testReduce2();
+testReduce2();
 
 
 
@@ -200,7 +207,7 @@ function testReduce3() {
     console.log("원본 배열:", numbers);
 
     let result = numbers.reduce((acc, value) => {
-        if (value % 2 == 0) {       // 짝수
+        if (value % 2 == 0) {       // 짝수 필터링
             acc.push(value);
         }
         return acc;
@@ -208,7 +215,7 @@ function testReduce3() {
 
     console.log("짝수 배열:", result);
 }
-// testReduce3();
+testReduce3();
 
 
 
@@ -259,7 +266,7 @@ function testDataPipeline() {
     console.log("총점 240 이상 학생드리의 평균:" , avgTotalSum);
 
 }   
-// testDataPipeline();
+testDataPipeline();
 
 
 
