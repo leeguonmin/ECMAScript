@@ -21,7 +21,7 @@ function testForEach() {
         console.log(`${index}  -> ${item}`, arr);
     })
 };
-testForEach();
+// testForEach();
 
 function testEverySome() {
     console.log(`
@@ -64,13 +64,13 @@ function testEverySome() {
     }); 
     얘는 
 
-    똑같은 코드임. 일부러 다르게 써서 보여준거임
+    똑같은 함수 콜백 코드임. 일부러 다르게 써서 보여준거임
 
     */ 
 
 
 }
-testEverySome();
+// testEverySome();
 
 
 
@@ -108,7 +108,7 @@ function testMap() {
     console.log("MAP: *2:", multiply);
 
 }
-testMap();
+// testMap();
 
 
 
@@ -127,4 +127,155 @@ function testFilter() {
 
     console.log("3의 배수: ", numbers.filter(item => item % 3 == 0));
 }
-testFilter();
+// testFilter();
+
+
+
+
+
+function testReduce() {
+    console.log(`
+================================== Reduce`);
+        // 가장 일반적인 Reduct -> 집계 
+    console.log("원본:", source);
+
+    // source 배열의 모든 요소 합산
+    let sum = source.reduce((acc, value, index, arr) => {
+        
+        console.log(
+            `콜백 파라미터 (                
+            acc: ${acc}, 
+            value: ${value},  
+            index ${index}, 
+            arr: ${arr} )`
+            , acc + value
+        // // `콜백 파라미터(acc: $ {acc},value: $ {value},index $ {index}, arr: $ {arr} )`, acc + value)`
+        );
+        // acc -> 현재 까지의 집계값
+        // value -> 현재 값
+
+        return acc + value;     // -> 다음번 콜백의 acc 로 전달
+    }, 0);
+
+    // 합산값
+    console.log("합산 결과:", sum);
+}
+// testReduce();
+
+
+
+
+function testReduce2() {
+    console.log(`
+---------------------------------------------------------------`)
+    // 반복되는 모든 것에는 reduce 함수를 적용할 수 있음 
+    // map함수를 reduce 함수로 구현
+    // 모든 요소를 *2 한 새 배열 생성
+    console.log("원본 배열:", numbers);
+
+    let result = numbers.reduce((acc, value) => {
+        console.log(`콜백 파라미터: (acc: ${acc}, value: ${value})`);
+        acc.push(value * 2);
+        console.log(` -> ${acc}`);
+
+        return acc;
+    },  [] )
+    
+    console.log("\n 요소 두배 : ", result);
+
+}
+// testReduce2();
+
+
+
+
+
+
+
+function testReduce3() {
+    console.log(`
+---------------------------------------------------------------`)
+    // reduce를 이용, filter 함수 구현 
+    // number 배열의 요소 중, 짝수만 필터링
+    console.log("원본 배열:", numbers);
+
+    let result = numbers.reduce((acc, value) => {
+        if (value % 2 == 0) {       // 짝수
+            acc.push(value);
+        }
+        return acc;
+    }, [] )                  // 초기값은 빈배열
+
+    console.log("짝수 배열:", result);
+}
+// testReduce3();
+
+
+
+// 데이터 만들고 
+const data = [
+    { name: "철수", kor:85, eng: 92, math:88 },
+    { name: "영희", kor: 70, eng:74, math:95 },
+    { name: "지후", kor:91, eng:89, math:85 },
+    { name: "지수", kor:65, eng:70, math:72 },
+    { name: "윤정", kor:80, eng:90, math:91 }
+];
+// 데이터 파이프라인 구축 예제
+// 졸려 죽게성요 ............. 졸ㄹ려요 살려주자ㅏ 날ㄹ 
+function testDataPipeline() {
+    console.log(`
+================================= map, filter, sort, reduce를 이용한 데이터 파이프라인`);
+    console.log("원본데이터:", data);
+    
+    // map 함수 이용 -> total 파생 변수
+    const studentWithTotal = data.map(student => ({          // {}만 하면 코드 블락됨. 그게 아니라 객체 만들어주고 싶은거니까 ()도 추가해야하는거 
+        ...student, total:student.kor + student.eng + student.math
+    }));                    // 선생님은 중간에 student 를 s로 수정했음. 너무 길어져서
+    console.log("map:", studentWithTotal);
+
+
+    // filter 함수 이용 -> total >= 240 만 출력
+    const filteredStudents = 
+                studentWithTotal.filter(student => student.total >= 240);
+    console.log("총점 240 이상:", filteredStudents);
+
+    
+    // sort 함수 이용 정렬 -> total 총점 기준으로
+    const sortedStudents = filteredStudents.sort(
+        // (a,b) => a.total - b.total       // 오름차순 
+        (a,b) => b.total - a.total          // 내림차순 
+    );
+    console.log("total 순 정렬:", sortedStudents);
+
+
+    // reduce 함수 활용 -> (sort 했으니까 240 이상인)학생들의 총점 평균 
+    const totalSum = sortedStudents.reduce(
+        (acc, student) => acc + student.total, 
+        0   //  초기값 0
+    );
+    console.log("총점 240 이상 학생들의 총점:", totalSum);
+
+    const avgTotalSum = totalSum / sortedStudents.length;
+    console.log("총점 240 이상 학생드리의 평균:" , avgTotalSum);
+
+}   
+// testDataPipeline();
+
+
+
+console.log(
+    "데이퍼 파이프라인 구축:",
+    data 
+        .map(student => ({
+            ...student,
+            total: student.kor + student.eng + student.math
+        }))
+    .filter(student => student.total >= 240)
+    .sort((a,b) => b.total - a.total)
+    .reduce((acc, student) => acc + student.total, 0) / 3
+     
+);
+
+
+
+
