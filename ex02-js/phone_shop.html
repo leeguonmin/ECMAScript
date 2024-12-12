@@ -139,12 +139,13 @@
         // 1. 하단의 .sub-image 클릭하면 (src)소스를 main-image로 옮겨주고
         // 2. title 속성을 main-image로, 그리고 ,h2 태그로 복사 해보자
         let products = document.getElementsByClassName("sub-image");
+        // HTMLcollection
         for (let i = 0; i <products.length; i++) {
             //  개별 프로덕트
             let product = products[i];
             console.log(product);
 
-            // 이벤트 부착 
+            // 이벤트 부착 (event 중요! 특히 event target 중요!)
             product.addEventListener("click", (event) => {
                 // 이벤트 발생 객체
                 let obj = event.target;
@@ -163,7 +164,30 @@
 
             });
         }
+
+
+
+        // input#keyword 의 내용이 변하면 
+        // -> buton#btn-search 의 value 속성으로 복사
+        /*
+        document.getElementById("keyword")
+            .addEventListener("keypress", ((event) => {
+                    console.log(event);                               // 여기까지 하고, 창의 인풋에다 검색 해보고, 콘솔에 뜨는거 한번 보고
+
+        */
+        document.getElementById("keyword")
+            .addEventListener("keyup", ((event) => {
+                    console.log(event);
+
+                    let btn=document.querySelector("#btn-search");
+                    btn.innerText = event.target.value + ":검색";
+
+            }));
+
     });
+
+
+
 
 
 </script>
