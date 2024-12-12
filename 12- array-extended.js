@@ -237,8 +237,9 @@ function testDataPipeline() {
     // map 함수 이용 -> total 파생 변수
     const studentWithTotal = data.map(student => ({          // {}만 하면 코드 블락됨. 그게 아니라 객체 만들어주고 싶은거니까 ()도 추가해야하는거 
         ...student, total:student.kor + student.eng + student.math
-    }));                    // 선생님은 중간에 student 를 s로 수정했음. 너무 길어져서
+    }));                    // 선생님은 중간에 student 를 s로 수정했음. 너무 길어져서 (s든 student든 매개변수)
     console.log("map:", studentWithTotal);
+
 
 
     // filter 함수 이용 -> total >= 240 만 출력

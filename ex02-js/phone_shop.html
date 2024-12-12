@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- 이미 만들어진 doument 를 다루는 방법 -->
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +10,9 @@
     <title>iPhones</title>
     <style>
 
-        bady {
-            margin: 0px;
-            padding: 0px;
+        #product-info {
+            margin: 5px;
+            border: 1.5px solid rgb(114, 158, 253);
         }
 
         #product-info img.selected {
@@ -40,6 +42,110 @@
         h3 {
             margin-top: 50px;
         }
+    </style>
+</head>
+
+
+
+<body>
+    <h1>phone_shop.html</h1>
+
+    <div id="product-info">
+
+        <img id="main-image" src="images/iphone-xs.jpeg" class="selected" title="iPhones XS">
+        
+        <h2>iPhone Xs</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.</p>
+
+        <h3>Products</h3>
+        <ul id="product-list">
+            <li><img class="sub-image" src="./images/iphone-xs.jpeg" title="iPhone XS"></li>
+            <li><img class="sub-image" src="./images/iphone-xr.jpeg" title="iPhone XR"></li>
+            <li><img class="sub-image" src="./images/iphone8.jpeg" title="iPhone 8"></li>
+            <li><img class="sub-image" src="./images/ipad-mini.jpeg" title="iPad Mini"></li>
+        </ul><br />
+
+        <br />
+        <input type="text" id="keyword" /><button id="btn-search">검색</button>
+
+    </div>
+
+
+</body>
+
+<script>                                            // 창 open 키고 > F12 > 콘솔 켜서 확인 // 
+    function testAttribute() {
+        // 1. #main-image 를 찾아서 속성들을 확인  (피피티 <DOM 요소에접근하기> 부분 )
+            let obj = document.getElementById("main-image");        
+            console.log("#main-image", obj);
+
+
+        // 1-1. obj가 어떤 속성들을 가지고 있는가?
+            console.log(obj.getAttributeNames());                   // => ['id', 'src', 'class', 'title']
+
+
+        // 2. 그 중 tital 속성을 받아와서 확인  (피피티 <태그속성의제어> 부분)
+            let title = obj.getAttribute("title");
+            console.log("title:" + title);
+            
+
+        // 3. 그 다음, title 속성을 변경해서, 다시 title 속성을 집어넣는다
+            obj.setAttribute("title", "제품사진: " + title);
+
+
+        // 4. 하단의 서브 이미지(.sub_image) 들의 title 속성도 변경해 봅시다 
+            let subs = document.getElementsByClassName("sub-image");        // 여기엔 . 넣으면 안됨. 이유는 못들었다
+            console.log(".sub-image: ", subs);
+            console.log(subs.__proto__);        // => HTMLCollection []       *콘솔에서 확인 가능
+                // 직접 접근 불가! 개별 요소 접근하기 위해선 loop 필요
+
+            for(let i =0; i < subs.length; i++ ) {
+                subs[i].setAttribute("title", "제품사진:" + subs[i].getAttribute("title"));
+            }
+        //                                        => HTMLCollection(4) [img.sub-image, img.sub-image, img.sub-image, img.sub-image]
+        //                                        > HTMLCollection {Symbol(Symbol.toStringTag): 'HTMLCollection', item: ƒ, namedItem: ƒ, Symbol(Symbol.iterator): ƒ}
+
+    }
+    testAttribute();
+</script>
+
+</html>
+
+
+
+<!--
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iPhones</title>
+    <style>
+
+        #product-info img.selected {
+            width: 225px;
+            height: 265px;
+            float: left;
+            border: 1px solid lightslategrey;
+            margin: 5px;
+        }
+
+        #product-list li {
+            list-style-type: none;
+            border: 1px solid lightslategrey;
+            margin: 5px;
+            float: left;
+        }
+
+        #product-list li img {
+            width: 100px;
+            height: 100px;
+        }
+
     </style>
 </head>
 
@@ -75,3 +181,5 @@
 </body>
 
 </html>
+
+-->
