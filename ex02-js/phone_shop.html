@@ -77,11 +77,14 @@
 
 </body>
 
-<script>                                            // 창 open 키고 > F12 > 콘솔 켜서 확인 // 
+<script>                                            // 창 open 키고 > F12 > 콘솔 켜서 확인 // => 왜 하는거냐면, 어떻게 돌아가는지 보기 위해서 해보는거임. 꼭 이 모든 과정을 적어야하는게 아니라, 과정이 어떻게 전개되는지 보여주려고 하는거임
     function testAttribute() {
+        // 메인 이미지에 마우스 가져다 대면 iPhones XS 라고 작은 설명창이 떠. title이 떠
+        // 그냥 'iPhones XS' 라고 뜨는걸 '제품사진:iPhones XS' 로 뜨게 수정해보자 
+
         // 1. #main-image 를 찾아서 속성들을 확인  (피피티 <DOM 요소에접근하기> 부분 )
             let obj = document.getElementById("main-image");        
-            console.log("#main-image", obj);
+            console.log("#main-image", obj);                        
 
 
         // 1-1. obj가 어떤 속성들을 가지고 있는가?
@@ -102,15 +105,67 @@
             console.log(".sub-image: ", subs);
             console.log(subs.__proto__);        // => HTMLCollection []       *콘솔에서 확인 가능
                 // 직접 접근 불가! 개별 요소 접근하기 위해선 loop 필요
+                            /*
+                            subs 는 document.getElementsByClassName("sub-image") 를 통해 반환된 결과이며, 이는 HTMLCollection 라는 객체임
+                            HTMLCollection 의 프로토타입에는 length, item(index), namedItem(name) 등의 메서드가 정의되어 있음 
+                            subs.__proto__ 를 출력하면 HTMLCollection의 프로토타입을 확인할 수 있음. 이를 통해 어떤 메서드와 속성을 사용할 수 있는지 알 수 있음
+                            subs.__proto__ 를 사용하는 이유는 디버깅하거나 객체가 상속받은 속성과 메서드를 확인하기 위해서 
+                            */
 
             for(let i =0; i < subs.length; i++ ) {
-                subs[i].setAttribute("title", "제품사진:" + subs[i].getAttribute("title"));
+                subs[i].setAttribute("title", "제품사진:" + subs[i].getAttribute("title"));        
             }
         //                                        => HTMLCollection(4) [img.sub-image, img.sub-image, img.sub-image, img.sub-image]
         //                                        > HTMLCollection {Symbol(Symbol.toStringTag): 'HTMLCollection', item: ƒ, namedItem: ƒ, Symbol(Symbol.iterator): ƒ}
 
     }
-    testAttribute();
+    // testAttribute();
+
+
+    // ===========================================================================================================================================================
+    
+    // 1. #main-image 를 클릭하면 이벤트 정보를 콘솔에 출력 
+    document.getElementById("main-image").onclick = function(event) {
+        // 이벤트 리스너 콜백 함수에 전달된 첫번째 인자값 => 이벤트 정보
+        console.log(event);                                     // 여기까지하고 창에서 main-image 누르면 콘솔에 이벤트 정보 떠
+        // console.log(typeof event);
+        console.log("이벤트 발생 객체:", event.target);          // 콘솔 확인 => <img id="main-image" src="images/iphone-xs.jpeg" class="selected" title="iPhones XS">
+
+        alert(event.target.title);
+    }
+
+    // 초기화 코드 : 페이지가 모두 로드 되었을 때 초기화 이벤트 발생
+    window.addEventListener("load", function(event) {
+        // 1. 하단의 .sub-image 클릭하면 (src)소스를 main-image로 옮겨주고
+        // 2. title 속성을 main-image로, 그리고 ,h2 태그로 복사 해보자
+        let products = document.getElementsByClassName("sub-image");
+        for (let i = 0; i <products.length; i++) {
+            //  개별 프로덕트
+            let product = products[i];
+            console.log(product);
+
+            // 이벤트 부착 
+            product.addEventListener("click", (event) => {
+                // 이벤트 발생 객체
+                let obj = event.target;
+
+                // #main-image 찾기 
+                let mainImage = document.getElementById("main-image");
+                mainImage.setAttribute("title:", obj.getAttribute("title"));
+                mainImage.setAttribute("src", obj.getAttribute("src"));
+
+
+                // title 속성 -> h2 로
+                let h2 = document.querySelector("#product-info h2");
+                h2.innerText = obj.getAttribute("title");
+                // .innerText -> 콘텐츠 변경 (text)
+                // .innerHTML -> 콘텐츠 변경 (html)
+
+            });
+        }
+    });
+
+
 </script>
 
 </html>
