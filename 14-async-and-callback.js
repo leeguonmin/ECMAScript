@@ -20,6 +20,12 @@ function logic() {
 // -> 비동기 처리를 수행하되, 전체적인 흐름을 동기방식처럼 처리할 필요가 있음
 // => promise
 
+
+
+
+
+
+
 function logicpromise() {
     console.log("begin logicPromise");
 
@@ -41,7 +47,14 @@ function testLogicPromise() {
         .then(value => { console.log("PROMISE resolve:", value)})
         .catch(reason => { console.error("PROMISE reject:" , reason)});
 }
-// testLogicPromise();
+testLogicPromise();
+
+
+
+
+
+
+
 
 
 // 좀 더 편하게 promise 비동기 구현을 위해 async /  await 키워드를 이용
@@ -75,5 +88,5 @@ async function processData() {
     console.log("가져온 데이터: ", data);
 
 }
-processData();
+// processData();
 
