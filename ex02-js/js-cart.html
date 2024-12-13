@@ -62,6 +62,15 @@
                 // li 노드 생성
                 let itemNode = document.createElement("li");
                 itemNode.innerText = item;
+                /*
+                itemNode.style.display = "flex"; // Flexbox 활성화
+itemNode.style.justifyContent = "space-between"; // 양쪽 정렬
+itemNode.style.alignItems = "center"; // 세로 중앙 정렬
+itemNode.style.listStyleType = "disc"; // 기본 원형 구분점
+itemNode.style.listStylePosition = "outside"; // 구분점을 텍스트 바깥으로 배치 (inside로 하면 텍스트와 섞임)
+itemNode.style.padding = "3px"; // li의 내부 여백
+
+*/
 
                 // toolbar
                 let toolbar = document.createElement("div");
@@ -71,24 +80,24 @@
                 delBtn.innerText = "삭제";
                 delBtn.style.cssFloat = "right";
 
-                //////////////////////
+/*
                 delBtn.style.backgroundColor = "#3CA6A6";  // 배경 색상
-        delBtn.style.color = "white";               // 글자 색상
-        delBtn.style.fontSize = "16px";             // 폰트 크기
-        delBtn.style.fontFamily = "Arial, sans-serif"; // 폰트 종류
-        delBtn.style.padding = "5px 14px";          // 버튼 안의 여백 (위아래, 좌우)
-        delBtn.style.border = "none";               // 테두리 없애기
-        delBtn.style.borderRadius = "5px";          // 버튼 모서리 둥글게 만들기
-        delBtn.style.cursor = "pointer";            // 마우스 커서 변경 (손 모양)
+            delBtn.style.color = "white";               // 글자 색상
+            delBtn.style.fontSize = "16px";             // 폰트 크기
+            delBtn.style.fontFamily = "Arial, sans-serif"; // 폰트 종류
+            delBtn.style.padding = "5px 14px";          // 버튼 안의 여백 (위아래, 좌우)
+            delBtn.style.border = "none";               // 테두리 없애기
+            delBtn.style.borderRadius = "5px";          // 버튼 모서리 둥글게 만들기
+            delBtn.style.cursor = "pointer";            // 마우스 커서 변경 (손 모양)
 
-        delBtn.addEventListener("mouseover", function() {
-        delBtn.style.backgroundColor = "#e60000"; // 마우스를 올렸을 때 배경 색상 변경
-        });
+            delBtn.addEventListener("mouseover", function() {
+            delBtn.style.backgroundColor = "#e60000"; // 마우스를 올렸을 때 배경 색상 변경
+            });
 
-        delBtn.addEventListener("mouseout", function() {
-        delBtn.style.backgroundColor = "#3CA6A6"; // 마우스를 떼면 원래 색상으로 복귀
-        });
-///////////////////////
+            delBtn.addEventListener("mouseout", function() {
+            delBtn.style.backgroundColor = "#3CA6A6"; // 마우스를 떼면 원래 색상으로 복귀
+            });
+*/
 
                 toolbar.appendChild(delBtn);
                 itemNode.appendChild(toolbar);
