@@ -41,5 +41,39 @@ function testLogicPromise() {
         .then(value => { console.log("PROMISE resolve:", value)})
         .catch(reason => { console.error("PROMISE reject:" , reason)});
 }
-testLogicPromise();
+// testLogicPromise();
+
+
+// 좀 더 편하게 promise 비동기 구현을 위해 async /  await 키워드를 이용
+// async 함수는 비동기 처리를 위해 promise 를 반환한다
+// (비동기 처리를 함에도, 동기처럼 처리)
+async function f() {
+    console.log("async function");
+    return 1;
+}
+console.log("Before f()");
+f().then(console.log);
+console.log("End Of Code");
+
+// 가상 시나리오
+// 프라미스를 이용해서 네트워크통신으로- 즉, ajax로 데이터 가져올 때
+function fetchData() {
+    // 네트워크 통신 : 가정
+    return new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("서버로부터 가져온 데이터");
+    }, 3000);
+});
+}
+
+async function processData() {
+    console.log("데이터를 가져오는 중....");
+
+    // await 키워드 : promise 가 해결될 때까지 코드를 일시 중단 시킨다
+    // promise 가 해결되면 await 는 promise 의 결과를 반환한다
+    const data = await fetchData();         // 여기 반드시 비동기 함수여야한다고?
+    console.log("가져온 데이터: ", data);
+
+}
+processData();
 
