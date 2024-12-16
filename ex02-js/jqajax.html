@@ -1,3 +1,5 @@
+<!-- 이게 ajax !!!!! 중요하다 이건!!! -->
+
 <!--html:5 > 엔터 --->
 <!DOCTYPE html>
 <html lang="ko">
@@ -29,7 +31,8 @@
         $("#btnCallSnippet").on("click", event => {
             alert("코드 조각을 불러옵니다");
 
-            // ajax 로 코드 조각 불러오기
+            // 제이쿼리 ajax 로 코드 조각 불러오기
+            /*
             $.ajax({
                 url: "snippet.html",        // url
                 type: "GET",                // 요청 방식
@@ -52,6 +55,28 @@
                     console.error("REQUEST:", request);
                 }
             });
+            */
+
+            
+            // 위에 'ajax 로 코드 조각 불러오기' 와 결과는 같고, 방식이 다른걸 해보는거임 (ES6 버전 )
+            // ES6
+            // - fetch : 통신 함수 
+            // - axios : 좀 더 고급 통신 기능을 활용하고 싶을 때 ! 
+            fetch ("snippet.html")
+            .then(response => {
+                console.log(response);
+                return response.text();      // 응답 텍스트를 받아온다
+            })
+            .then(data => {                 // 성공할시 
+                document.getElementById("info").innerHTML = data;
+            })
+            .catch(error => {               // 실패할시
+                console.error("ERROR:" , error);
+            });
+
+
+
+
         });
     });
 </script>
