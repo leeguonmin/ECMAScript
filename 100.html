@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telecom Member Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+        /* 1번 칸: 회원 목록 */
+        .member-list {
+            width: 300px;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #fafafa;
+            border-right: 1px solid #ccc;
+        }
+
+
+        .member-list h2 {
+            background-color: #555;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+
+        .radio-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px;
+        }
+
+
+        .radio-menu label {
+            margin: 5px;
+            cursor: pointer;
+        }
+
+
+        .member-list ul {
+            list-style-type: none;
+            padding: 10px;
+        }
+
+
+        .member-list ul li {
+            margin: 5px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        /* 2번 칸: 상세 정보 */
+        .member-details {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+
+        .member-details h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+
+        .member-details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+
+        .member-details ul li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+
+        /* 관리자 창 */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 600px;
+            background-color: #f4f4f4;
+            border-left: 1px solid #ccc;
+            overflow-y: auto;
+            margin-right: 30px;
+            margin-top: 30px;
+        }
+
+
+        .admin-panel h2 {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+
+        .admin-panel ul {
+            list-style-type: none;
+            padding: 10px;
+        }
+
+
+        .admin-panel ul li {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1번 칸: 회원 목록 -->
+    <div class="member-list">
+        <h2>회원 목록</h2>
+        <div class="radio-menu">
+            <label><input type="radio" name="member-filter" value="all" checked> All</label>
+            <label><input type="radio" name="member-filter" value="admin"> ADMIN</label>
+            <label><input type="radio" name="member-filter" value="vip"> VIP</label>
+            <label><input type="radio" name="member-filter" value="gold"> GOLD</label>
+            <label><input type="radio" name="member-filter" value="silver"> SILVER</label>
+            <label><input type="radio" name="member-filter" value="bronze"> BRONZE</label>
+        </div>
+        <ul id="member-list">
+            <!-- 회원 목록이 동적으로 추가될 예정 -->
+        </ul>
+    </div>
+
+
+    <!-- 2번 칸: 상세 정보 -->
+    <div class="member-details">
+        <h2>회원 상세 정보</h2>
+        <ul id="member-details">
+            <!-- 선택된 회원 상세 정보가 여기에 표시됨 -->
+        </ul>
+    </div>
+
+
+    <!-- 관리자 창 -->
+    <div class="admin-panel">
+        <h2>관리자 창</h2>
+        <ul id="admin-actions">
+            <li><button onclick="upgradeAll()">등급 일괄 업그레이드</button></li>
+            <li><button onclick="resetGrades()">등급 초기화</button></li>
+        </ul>
+    </div>
+
+
+    <script>
+        // 더미 회원 데이터 (20명)
+const members = [
+    { id: 1, name: "김철수", grade: "VIP", phone: "010-1111-1111" },
+    { id: 2, name: "이영희", grade: "GOLD", phone: "010-2222-2222" },
+    { id: 3, name: "박민수", grade: "SILVER", phone: "010-3333-3333" },
+    { id: 4, name: "최유리", grade: "BRONZE", phone: "010-4444-4444" },
+    { id: 5, name: "오세훈", grade: "BRONZE", phone: "010-5555-5555" },
+    { id: 6, name: "정은지", grade: "SILVER", phone: "010-6666-6666" },
+    { id: 7, name: "장혁", grade: "GOLD", phone: "010-7777-7777" },
+    { id: 8, name: "한지민", grade: "VIP", phone: "010-8888-8888" },
+    { id: 9, name: "신동엽", grade: "BRONZE", phone: "010-9999-9999" },
+    { id: 10, name: "김연아", grade: "GOLD", phone: "010-1010-1010" },
+    { id: 11, name: "박보검", grade: "SILVER", phone: "010-1112-1112" },
+    { id: 12, name: "아이유", grade: "VIP", phone: "010-1313-1313" },
+    { id: 13, name: "손흥민", grade: "GOLD", phone: "010-1414-1414" },
+    { id: 14, name: "류준열", grade: "SILVER", phone: "010-1515-1515" },
+    { id: 15, name: "홍길동", grade: "BRONZE", phone: "010-1616-1616" },
+    { id: 16, name: "서강준", grade: "VIP", phone: "010-1717-1717" },
+    { id: 17, name: "공효진", grade: "GOLD", phone: "010-1818-1818" },
+    { id: 18, name: "박서준", grade: "SILVER", phone: "010-1919-1919" },
+    { id: 19, name: "이수근", grade: "BRONZE", phone: "010-2020-2020" },
+    { id: 20, name: "강호동", grade: "VIP", phone: "010-2121-2121" }
+];
+
+
+const memberList = document.getElementById("member-list");
+const memberDetails = document.getElementById("member-details");
+
+
+// 등급 번호 맵핑
+const gradeMapping = {
+    "BRONZE": 1,
+    "SILVER": 2,
+    "GOLD": 3,
+    "VIP": 4
+};
+
+
+// 반대로 번호로 등급 가져오기
+const gradeReverseMapping = {
+    1: "BRONZE",
+    2: "SILVER",
+    3: "GOLD",
+    4: "VIP"
+};
+
+
+// 필터링 함수
+function filterMembers(filter) {
+    memberList.innerHTML = "";
+    const filtered = filter === "all" ? members : members.filter(m => m.grade.toUpperCase() === filter.toUpperCase());
+    filtered.forEach(member => {
+        const li = document.createElement("li");
+        li.textContent = `${member.name} (${member.grade}) - ${member.phone}`;
+        li.addEventListener("click", () => displayDetails(member));
+        memberList.appendChild(li);
+    });
+}
+
+
+// 상세 정보 표시 함수 + 개별 업그레이드 추가
+function displayDetails(member) {
+    memberDetails.innerHTML = `
+        <li>이름: ${member.name}</li>
+        <li>등급: ${member.grade}</li>
+        <li>전화번호: ${member.phone}</li>
+        <button onclick="upgradeMember(${member.id})">등급 업그레이드</button>
+    `;
+}
+
+
+// 개별 회원 업그레이드 함수
+function upgradeMember(memberId) {
+    const member = members.find(m => m.id === memberId);
+    if (member) {
+        const currentGradeNumber = gradeMapping[member.grade];
+        if (currentGradeNumber < 4) {
+            const upgradedGrade = gradeReverseMapping[currentGradeNumber + 1];
+            member.grade = upgradedGrade;
+            alert(`${member.name} 님의 등급이 ${upgradedGrade}(으)로 업그레이드되었습니다.`);
+            filterMembers("all"); // 업그레이드 후 전체 목록 갱신
+        } else {
+            alert(`${member.name} 님은 이미 최고 등급입니다.`);
+        }
+    }
+}
+
+
+// 초기화 함수 (전체 회원 조회)
+function init() {
+    filterMembers("all");
+}
+
+
+// 페이지 로드 시 초기화
+init();
+</script>
+</body>
